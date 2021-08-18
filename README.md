@@ -15,6 +15,62 @@ curl http://localhost:8080/1.1.1.1
 curl http://localhost:8080/me
 ```
 
+#### Response
+
+```json
+{
+  "details": {
+    "continent": {
+      "code": "OC",
+      "geoname_id": 6255151,
+      "names": {
+        "de": "Ozeanien",
+        "en": "Oceania",
+        "es": "Oceanía",
+        "fr": "Océanie",
+        "ja": "オセアニア",
+        "pt-BR": "Oceania",
+        "ru": "Океания",
+        "zh-CN": "大洋洲"
+      }
+    },
+    "country": {
+      "geoname_id": 2077456,
+      "is_in_european_union": null,
+      "iso_code": "AU",
+      "names": {
+        "de": "Australien",
+        "en": "Australia",
+        "es": "Australia",
+        "fr": "Australie",
+        "ja": "オーストラリア",
+        "pt-BR": "Austrália",
+        "ru": "Австралия",
+        "zh-CN": "澳大利亚"
+      }
+    },
+    "registered_country": {
+      "geoname_id": 2077456,
+      "is_in_european_union": null,
+      "iso_code": "AU",
+      "names": {
+        "de": "Australien",
+        "en": "Australia",
+        "es": "Australia",
+        "fr": "Australie",
+        "ja": "オーストラリア",
+        "pt-BR": "Austrália",
+        "ru": "Австралия",
+        "zh-CN": "澳大利亚"
+      }
+    },
+    "represented_country": null,
+    "traits": null
+  },
+  "ip": "1.1.1.1"
+}
+```
+
 ### Benchmark
 
 - The api defaults to the number of cpu cores as workers.
