@@ -71,6 +71,26 @@ curl http://localhost:8080/me
 }
 ```
 
+### Routes
+
+##### `/me`
+
+| Status code | Problems |
+|-|-|
+| `200` | none |
+| `400` | your ip couldn't be extracted correctly |
+| `404` | your ip hasn't been found in the database |
+| `500` | we had internal issues looking into the database |
+
+##### `/:ip`
+
+| Status code | Problems |
+|-|-|
+| `200` | none |
+| `400` | the given ip isn't a valid ip |
+| `404` | the requested ip hasn't been found in the database |
+| `500` | we had internal issues looking into the database |
+
 ### Benchmark
 
 - The api defaults to the number of cpu cores as workers.

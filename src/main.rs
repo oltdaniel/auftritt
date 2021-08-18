@@ -20,11 +20,15 @@ async fn handle_ip(pool: web::Data<MaxmindPool>, ip: web::Path<String>) -> impl 
         return HttpResponse::new(StatusCode::BAD_REQUEST);
     }
     let ip = ip_parsed.unwrap();
-    let conn = pool.get().expect("couldnt get connection");
-    let data: Result<geoip2::Country, maxminddb::MaxMindDBError> = conn.lookup(ip);
+    let conn = pool.get();
+    if conn.is_err() {
+        return HttpResponse::new(StatusCode::INTERNAL_SERVER_ERROR);
+    }
+    let conn_ok = conn.unwrap();
+    let data: Result<geoip2::Country, maxminddb::MaxMindDBError> = conn_ok.lookup(ip);
     match data {
         Ok(v) => HttpResponse::Ok().json(IpLookupResponse{details: v, ip: ip}),
-        Err(_) => HttpResponse::new(StatusCode::BAD_REQUEST),
+        Err(_) => HttpResponse::new(StatusCode::NOT_FOUND),
     }
 }
 
@@ -39,11 +43,15 @@ async fn handle_me(pool: web::Data<MaxmindPool>, req: HttpRequest) -> impl Respo
         return HttpResponse::new(StatusCode::BAD_REQUEST);
     }
     let ip_parsed = remote_addr_parsed.unwrap().ip();
-    let conn = pool.get().expect("couldnt get connection");
-    let data: Result<geoip2::Country, maxminddb::MaxMindDBError> = conn.lookup(ip_parsed);
+    let conn = pool.get();
+    if conn.is_err() {
+        return HttpResponse::new(StatusCode::INTERNAL_SERVER_ERROR);
+    }
+    let conn_ok = conn.unwrap();
+    let data: Result<geoip2::Country, maxminddb::MaxMindDBError> = conn_ok.lookup(ip_parsed);
     match data {
         Ok(v) => HttpResponse::Ok().json(IpLookupResponse{details: v, ip: ip_parsed}),
-        Err(_) => HttpResponse::new(StatusCode::BAD_REQUEST)
+        Err(_) => HttpResponse::new(StatusCode::NOT_FOUND)
     }
 }
 
