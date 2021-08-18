@@ -1,21 +1,12 @@
 use std::net::{SocketAddr, IpAddr};
 
-use actix_web::{get, web, App, HttpResponse, HttpRequest, HttpServer, Responder};
+use actix_web::{web, App, HttpResponse, HttpRequest, HttpServer, Responder};
 use actix_web::http::{StatusCode};
 use r2d2::{ManageConnection};
 use maxminddb::geoip2;
 use serde::{Serialize};
 
-const WELCOME: &str = concat!(
-    "### welcome to auftritt",
-);
-
 type MaxmindPool = r2d2::Pool<MaxmindManager>;
-
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body(WELCOME)
-}
 
 #[derive(Serialize)]
 struct IpLookupResponse<'a> {
