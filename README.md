@@ -8,7 +8,7 @@
 
 ```bash
 # lets assume the database is in the data directory `./data/GeoLite2-Country.mmdb`
-cargo run --release ./data/
+cargo run --release ./data/GeoLite2-Country.mmdb
 # lookup ip
 curl http://localhost:8080/1.1.1.1
 # lookup yourself (localhost results in bad request)
